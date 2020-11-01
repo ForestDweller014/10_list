@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include <string.h>
 #include "mystruct.h"
    
@@ -27,7 +26,9 @@ struct session *new_session(char *user) {
 }
 
 int print_session(struct session *curr_session) {
-	printf("Username: %s\nLogin token: %s\n", curr_session->username, curr_session->login_token);
+	if (curr_session) {
+		printf("Username: %s\nLogin token: %s\n", curr_session->username, curr_session->login_token);
+	}
 	return 0;
 }
 
@@ -73,7 +74,11 @@ struct session *remove_node(struct session *front, char *user) {
 			free(tracker);
 		}
 		behind_tracker = behind_tracker->next;
-		tracker = behind_tracker->next;
+		if (behind_tracker) {
+			tracker = behind_tracker->next;
+		} else {
+			tracker = NULL;
+		}
 	}
 	return front;
 }
